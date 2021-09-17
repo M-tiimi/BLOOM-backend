@@ -22,7 +22,7 @@ def apitest(request):
 @csrf_exempt
 def flower_list(request):
     """
-    List all code snippets, or create a new snippet.
+    List all code flowers, or create a new snippet.
     """
     if request.method == 'GET':
         flowers = Flower.objects.all()
@@ -36,3 +36,6 @@ def flower_list(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)    
+
+
+
