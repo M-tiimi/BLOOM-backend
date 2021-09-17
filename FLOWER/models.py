@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
 # An id field is added automatically, but this behavior can be overridden
 class User(AbstractBaseUser):
     username = models.CharField(max_length=20)
+    age = models.IntegerField()
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
