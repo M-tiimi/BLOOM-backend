@@ -24,19 +24,19 @@ class User(AbstractBaseUser):
 class Flower(models.Model):
     color = models.CharField(max_length=50)
     wellness = models.CharField(max_length=100)
-    points = models.IntegerField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+   
 
     def __str__(self):
         return 'I am '+self.color+' Flower'
 
 class Question(models.Model):
     title = models.CharField(max_length=40)
+   
 
 class Answer(models.Model):
     title = models.CharField(max_length=1000)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    
 
 class Task(models.Model):
-    points = models.ForeignKey(Flower, on_delete=models.CASCADE)
-    user = user = models.ForeignKey(User, on_delete=models.CASCADE)
+    points = models.IntegerField()
+    

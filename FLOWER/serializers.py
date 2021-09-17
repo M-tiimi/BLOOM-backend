@@ -1,5 +1,10 @@
 from rest_framework import serializers
 from FLOWER.models import Flower
+from FLOWER.models import User
+from FLOWER.models import Answer
+from FLOWER.models import Question
+from FLOWER.models import Task
+
 
 
 class FlowerSerializer(serializers.Serializer):
@@ -26,14 +31,8 @@ class FlowerSerializer(serializers.Serializer):
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(required=True, allow_blank=False)
-    age = serializers.IntegerField(required=False, allow_blank=True)
-    email = models.EmailField(
-        required=True, 
-        allow_blank=False,
-        verbose_name='email address',
-        max_length=255,
-        unique=True,
-    )
+    age = serializers.IntegerField(required=False)
+  
     is_active = serializers.BooleanField(default=True)
     is_admin = serializers.BooleanField(default=False)
 
@@ -64,29 +63,29 @@ class QuestionSerializer(serializers.Serializer):
 class AnswerSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=True, allow_blank=False, max_length=1000)
-    question = serializers.ForeignKey(Question, on_delete=models.CASCADE, required=True, allow_blank=False)
+   
 
     def create(self, validated_data):
         return Answer.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
-        instance.question = validated_data.get('question', instance.question)
+        
         
         instance.save()
         return instance
 
 class TaskSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    points = serializers.ForeignKey(Flower, on_delete=models.CASCADE,required=True, allow_blank=False)
-    user = serializers.ForeignKey(User, on_delete=models.CASCADE, required=True, allow_blank=False)
+    points=serializers.IntegerField(read_only=True)
+   
 
     def create(self, validated_data):
         return Task.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         instance.points = validated_data.get('points', instance.points)
-        instance.user = validated_data.get('user', instance.user)
+        
         
         instance.save()
         return instance
