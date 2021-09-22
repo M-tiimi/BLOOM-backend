@@ -9,6 +9,10 @@ from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from FLOWER.models import Answer
+from FLOWER.models import Question
+from FLOWER.serializers import AnswerSerializer
+from FLOWER.serializers import QuestionSerializer
 
 
 @csrf_exempt
@@ -41,4 +45,33 @@ class UserList(APIView):
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, safe=False)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)
 
+
+class QuestionList(APIView):
+   
+    def get(self, request, format=None):
+        questions = Question.objects.all()
+        serializer = QuestionSerializer(questions, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    def post(self, request, format=None):
+        serializer = QuestionSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, safe=False)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)
+
+
+class AnswerList(APIView):
+   
+    def get(self, request, format=None):
+        answers = Answer.objects.all()
+        serializer = AnswerSerializer(answers, many=True)
+        return JsonResponse(serializer.data, safe=False)
+
+    def post(self, request, format=None):
+        serializer = AnswerSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, safe=False)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)
 

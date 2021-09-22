@@ -11,7 +11,7 @@ class FlowerSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     color = serializers.CharField(required=False, allow_blank=True, max_length=50)
     wellness = serializers.CharField(required=False, max_length = 100)
-
+    user =serializers.PrimaryKeyRelatedField(many=False, read_only=True)
     def create(self, validated_data):
         
         #Create and return a new `Flower` instance, given the validated data.
@@ -32,7 +32,7 @@ class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(required=True, allow_blank=False)
     age = serializers.IntegerField(required=False)
-  
+   
     is_active = serializers.BooleanField(default=True)
     is_admin = serializers.BooleanField(default=False)
 
