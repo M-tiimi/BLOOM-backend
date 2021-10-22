@@ -3,7 +3,7 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
-# Create your models here.
+# models created here
 # An id field is added automatically, but this behavior can be overridden
 class User(AbstractBaseUser):
     username = models.CharField(max_length=20)
