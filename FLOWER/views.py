@@ -13,6 +13,7 @@ from FLOWER.models import Answer
 from FLOWER.models import Question
 from FLOWER.serializers import AnswerSerializer
 from FLOWER.serializers import QuestionSerializer
+from django.shortcuts import render
 
 
 @csrf_exempt
@@ -75,3 +76,13 @@ class AnswerList(APIView):
             return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, safe=False)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)
 
+def manage_users(request):
+    UserFormSet = userformset_factory(User, fields=("username", "age", "email"))
+    if request.method == POST:
+        formset = UserFormSet(request.POST, request.files)
+        if formset.is_valid():
+            formset.save()
+    
+    else:
+        formset = UserFormSet()
+    return render(request, 'userform.html', {'formset' : fromset})
