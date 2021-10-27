@@ -1,11 +1,9 @@
-<form method="post">
-    {{ formset.management_form }}
-    {% for form in formset %}
-        {{ form.id }}
-        <ul>
-            <li>{{ form.username }}</li>
-            <li>{{ form.age }}</li>
-            <li>{{ form.email }}</li>
-        </ul>
-    {% endfor %}
-</form>
+{% load rest_framework %}
+<html>
+    <body>
+        <h2>I am user</h2>
+        
+        <h1>User - {{ user.username }}  id: {{ user.id }}</h1>
+   
+    </body>
+    </html>
