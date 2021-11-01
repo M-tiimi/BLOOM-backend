@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/ce13914a-8867-41da-98ba-2c635479af16/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/bloom-app",
+    "appService.deploySubpath": "."
+}

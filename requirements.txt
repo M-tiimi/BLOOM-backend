@@ -1,8 +1,10 @@
+tensorflow==2.6.0
 Django==3.2.8
 django-cors-headers==3.10.0
 django-filter==21.1
 djangorestframework==3.12.4
 djangorestframework-jwt==1.11.0
+flask==1.1.2
 h5py==3.1.0
 json5==0.9.5
 jupyter==1.0.0
@@ -10,11 +12,4 @@ keras==2.6.0
 Keras-Preprocessing==1.1.2
 mpmath==1.2.1
 numpy==1.19.5
-pep8==1.7.1
-ply==3.11
-preshed==3.0.5
-tensorboard-data-server==0.6.1
-tensorboard-plugin-wit==1.8.0
-tensorflow==2.6.0
-tensorflow-estimator==2.6.0
-tokenizer==3.3.2
+nltk==3.6.1

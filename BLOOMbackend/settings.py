@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--jthq!^g4%bay%lj^dsw%cv0ln4qb8+(0g9^799paf6p93uol1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS =  ['192.168.100.2', 'localhost', '19002']
+ALLOWED_HOSTS =  ['bloom-app.azurewebsites.net']
 
 
 # Application definition
