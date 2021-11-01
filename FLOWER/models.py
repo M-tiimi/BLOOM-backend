@@ -4,7 +4,8 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
-# models created here
+# This file is for creating models that are saved as database tables
+
 # An id field is added automatically, but this behavior can be overridden
 class User(AbstractBaseUser):
     username = models.CharField(max_length=20)

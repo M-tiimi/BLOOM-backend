@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 from django.shortcuts import render
 
-
+#urls for views, check BLOOMbackend folder where urls.py is
 urlpatterns = [
     path('', views.flower_list),
     path('flowers/', views.flower_list),
