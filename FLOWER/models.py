@@ -9,7 +9,7 @@ from django.contrib.auth.models import (
 # An id field is added automatically, but this behavior can be overridden
 class User(AbstractBaseUser):
     username = models.CharField(max_length=20)
-    age = models.IntegerField()
+    birth_year = models.IntegerField()
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -34,12 +34,16 @@ class Flower(models.Model):
 
 class Question(models.Model):
     title = models.CharField(max_length=40)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
    
 
 class Answer(models.Model):
     title = models.CharField(max_length=1000)
+    date = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
     
 
 class Task(models.Model):
     points = models.IntegerField()
+    flower = models.ForeignKey(Flower, on_delete=models.CASCADE, null=True)
     
