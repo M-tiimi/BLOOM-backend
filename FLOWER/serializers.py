@@ -12,6 +12,7 @@ class FlowerSerializer(serializers.Serializer):
     color = serializers.CharField(required=False, allow_blank=True, max_length=50)
     wellness = serializers.CharField(required=False, max_length = 100)
     user =serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    task = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     def create(self, validated_data):
         
         #Create and return a new `Flower` instance, given the validated data.
@@ -32,6 +33,8 @@ class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(required=True, allow_blank=False)
     age = serializers.IntegerField(required=False)
+    flower = serializers.PrimaryKeyRelatedField(many=False, read_only=True) 
+    question = serializers.PrimaryKeyRelatedField(many=True, read_only=True) 
    
     is_active = serializers.BooleanField(default=True)
     is_admin = serializers.BooleanField(default=False)
@@ -50,6 +53,8 @@ class UserSerializer(serializers.Serializer):
 class QuestionSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=True, allow_blank=False, max_length=40)
+    user = serializers.PrimaryKeyRelatedField(many=False, read_only=True) 
+    answer = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     def create(self, validated_data):
         return Question.objects.create(**validated_data)
@@ -63,6 +68,7 @@ class QuestionSerializer(serializers.Serializer):
 class AnswerSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=True, allow_blank=False, max_length=1000)
+    question =serializers.PrimaryKeyRelatedField(many=False, read_only= True)
    
 
     def create(self, validated_data):
@@ -78,6 +84,7 @@ class AnswerSerializer(serializers.Serializer):
 class TaskSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     points=serializers.IntegerField(read_only=True)
+    flower = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
    
 
     def create(self, validated_data):

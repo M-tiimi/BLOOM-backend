@@ -27,23 +27,23 @@ class User(AbstractBaseUser):
 class Flower(models.Model):
     color = models.CharField(max_length=50)
     wellness = models.CharField(max_length=100)
-    user = models.OneToOneField('User', on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="flower") 
 
     def __str__(self):
         return 'I am '+self.color+' Flower'
 
 class Question(models.Model):
     title = models.CharField(max_length=40)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="question")
    
 
 class Answer(models.Model):
     title = models.CharField(max_length=1000)
     date = models.DateTimeField(auto_now=False, auto_now_add=True, null=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True, related_name= "answer")
     
 
 class Task(models.Model):
     points = models.IntegerField()
-    flower = models.ForeignKey(Flower, on_delete=models.CASCADE, null=True)
+    flower = models.ForeignKey(Flower, on_delete=models.CASCADE, null=True, related_name='task')
     
