@@ -20,7 +20,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v1
         with:
-          python-version: '3.8'
+          python-version: '3.9'
 
       - name: Create and start virtual environment
         run: |
@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'bloom-app'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_22C11B89F257443480EA54D0AA183A3D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A9E54FBF0F8044F881A31A208DA417A1 }}
