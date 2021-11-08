@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'bloom-app'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A9E54FBF0F8044F881A31A208DA417A1 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2D1F5A8B1561416E9B62A229456442AA }}
