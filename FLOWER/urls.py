@@ -11,7 +11,6 @@ urlpatterns = [
     path('questions/', views.QuestionList.as_view()),
     path('answers/', views.AnswerList.as_view()),
     path('profiles/', views.UserDetail.as_view()),
-    path('userlist/<int:pk>/', views.UserDetail.as_view(), name='user-detail'),
     path('ml-model/', views.call_model.as_view()),
     
     
