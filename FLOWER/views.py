@@ -15,7 +15,6 @@ from FLOWER.serializers import AnswerSerializer
 from FLOWER.serializers import QuestionSerializer
 from django.shortcuts import render
 from django.forms import formset_factory
-from FLOWER.form import UserForm
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from rest_framework.renderers import TemplateHTMLRenderer
