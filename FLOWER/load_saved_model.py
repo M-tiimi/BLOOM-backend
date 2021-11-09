@@ -61,7 +61,7 @@ def make_predictions(data):
 	print('hi i try to predict')
 
 	# load model
-	model = load_model("FLOWER\latest_model.h5")
+	model = load_model("FLOWER/latest_model.h5")
 	model.summary()
 	sequenced_data = handle_data(data)
 	

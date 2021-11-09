@@ -59,42 +59,19 @@ american psycho ( 10/10 ) - deep blue sea ( 8/10 ) - eye of the beholder ( 4/10 
             response = {'prediction': prediction}           
             return JsonResponse(response)
 
-class UserDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'userform.html'
 
-    def get(self, request, pk):
-        pk =User.objects.get(pk=self.kwargs['pk'])
-        user = get_object_or_404(User, pk=pk.id)
-        
-        serializer = UserSerializer(user)
-        return Response({'serializer': serializer, 'user': user})
-
-    def post(self, request, pk):
-        pk =User.objects.get(pk=self.kwargs['pk'])
-        user = get_object_or_404(User, pk=pk)
-        serializer = UserSerializer(user, data=request.data)
-        
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'user': user})
-        serializer.save()
-        return HttpResponseRedirect('flower:userlist')
-
-#function based view for Flower that returns all Flowers from database in JSON
-@csrf_exempt
-def flower_list(request):
-    if request.method == 'GET':
+class FlowerList(APIView):
+    def get(self, request, format=None):
         flowers = Flower.objects.all()
         serializer = FlowerSerializer(flowers, many=True)
         return JsonResponse(serializer.data, safe=False)
 
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = FlowerSerializer(data=data)
+    def post(self, request, format=None):
+        serializer = FlowerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)    
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, safe=False)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)   
 
 
 class UserList(APIView):
