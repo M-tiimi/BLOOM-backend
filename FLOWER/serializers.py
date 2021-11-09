@@ -4,7 +4,7 @@ from FLOWER.models import User
 from FLOWER.models import Answer
 from FLOWER.models import Question
 from FLOWER.models import Task
-
+from rest_framework_jwt.settings import api_settings
 
 
 class FlowerSerializer(serializers.Serializer):
@@ -32,6 +32,7 @@ class FlowerSerializer(serializers.Serializer):
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(required=True, allow_blank=False)
+    password =serializers.CharField(required = True, allow_blank=False)
     age = serializers.IntegerField(required=False)
     flower = serializers.PrimaryKeyRelatedField(many=False, read_only=True) 
     question = serializers.PrimaryKeyRelatedField(many=True, read_only=True) 
@@ -49,6 +50,36 @@ class UserSerializer(serializers.Serializer):
         
         instance.save()
         return instance
+
+
+
+
+class UserSerializerWithToken(serializers.ModelSerializer):
+
+    token = serializers.SerializerMethodField()
+    password = serializers.CharField(write_only=True)
+
+    def get_token(self, obj):
+        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+        payload = jwt_payload_handler(obj)
+        token = jwt_encode_handler(payload)
+        return token
+
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        instance = self.Meta.model(**validated_data)
+        if password is not None:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
+    class Meta:
+        model = User
+        fields = ('token', 'username', 'password')       
+
+
 
 class QuestionSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)

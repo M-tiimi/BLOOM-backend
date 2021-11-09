@@ -10,6 +10,7 @@ urlpatterns = [
     path('questions/', views.QuestionList.as_view()),
     path('answers/', views.AnswerList.as_view()),
     path('ml-model/', views.call_model.as_view()),
+    path('current_user/', views.current_user),
     
     
 ]

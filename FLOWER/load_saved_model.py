@@ -7,11 +7,12 @@ from keras.models import load_model
 from nltk.corpus import stopwords
 import string
 import numpy as np
-import os
-import h5py
+import nltk
+
 
 
 def load_doc1(filename):
+	nltk.download('all')
 	# open the file as read only
 	file = open(filename, 'r')
 	# read all text
