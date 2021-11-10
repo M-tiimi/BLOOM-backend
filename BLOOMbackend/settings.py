@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'FLOWER.apps.FlowerConfig',
     'rest_framework',
     'corsheaders',
+    
 ]
 
 MIDDLEWARE = [
@@ -147,3 +148,4 @@ JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'BLOOMbackend.utils.my_jwt_response_handler'
 }
 
+AUTH_USER_MODEL = 'FLOWER.User'

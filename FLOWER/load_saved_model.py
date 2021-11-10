@@ -12,7 +12,6 @@ import nltk
 
 
 def load_doc1(filename):
-	nltk.download('all')
 	# open the file as read only
 	file = open(filename, 'r')
 	# read all text

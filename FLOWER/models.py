@@ -1,14 +1,13 @@
 from django.db import models
 from django.forms import ModelForm
-from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser
-)
+from django.contrib.auth.models import AbstractBaseUser
+
 
 # This file is for creating models that are saved as database tables
 
 # An id field is added automatically, but this behavior can be overridden
 class User(AbstractBaseUser):
-    username = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=20)
     birth_year = models.IntegerField()
     email = models.EmailField(
@@ -18,6 +17,8 @@ class User(AbstractBaseUser):
     )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+
+    REQUIRED_FIELDS = ['id','password', 'email']
 
     USERNAME_FIELD = 'username'
 

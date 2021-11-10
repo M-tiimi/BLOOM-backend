@@ -75,9 +75,8 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         instance.save()
         return instance
 
-    class Meta:
-        model = User
-        fields = ('token', 'username', 'password')       
+ 
+         
 
 
 
