@@ -4,12 +4,11 @@ django-cors-headers==3.10.0
 django-filter==21.1
 djangorestframework==3.12.4
 djangorestframework-jwt==1.11.0
-flask==1.1.2
 h5py==3.1.0
 json5==0.9.5
-jupyter==1.0.0
 keras==2.6.0
 Keras-Preprocessing==1.1.2
-mpmath==1.2.1
 numpy==1.19.5
 nltk==3.6.1
+python-decouple==3.5
+

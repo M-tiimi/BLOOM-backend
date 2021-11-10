@@ -6,8 +6,8 @@ from keras.preprocessing.sequence import pad_sequences
 from keras.models import load_model
 from nltk.corpus import stopwords
 import string
-import numpy as np
-import nltk
+
+
 
 
 
