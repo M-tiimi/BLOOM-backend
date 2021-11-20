@@ -1,11 +1,9 @@
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
 from FLOWER.models import Flower
 from FLOWER.serializers import FlowerSerializer
 from FLOWER.models import User
 from FLOWER.serializers import UserSerializer, UserSerializerWithToken
-from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -13,31 +11,36 @@ from FLOWER.models import Answer
 from FLOWER.models import Question
 from FLOWER.serializers import AnswerSerializer
 from FLOWER.serializers import QuestionSerializer
-from django.shortcuts import render
-from django.forms import formset_factory
-from django.http import HttpResponseRedirect
-from django.http import HttpResponse
-from rest_framework.renderers import TemplateHTMLRenderer
-from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView, UpdateView
 from FLOWER.load_saved_model import make_predictions
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
+from rest_framework.permissions import BasePermission
+from django.utils.decorators import method_decorator
+
+
+
+class AllowAny(BasePermission):
+    def has_permission(self, request, view):
+        return request.method 
 
 #call ml-model and make a prediction that is shown on url ml-model
-class call_model(APIView):
+@method_decorator(csrf_exempt, name='dispatch')
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def call_model(request):
+    answer = request.data
+    print(answer.get('data'))
+    prediction = make_predictions(answer.get('data'))
+    if (len(prediction) > 0):
+        response = {'prediction': prediction}
+        return JsonResponse(response, status=status.HTTP_201_CREATED, safe=False)
+    else:
+        return JsonResponse('error', status=status.HTTP_201_CREATED, safe=False)
     
-    def get(self,request):
-        data = Answer.objects.get(id=2)
-        print(data.title)
-        if request.method == 'GET':                        
-            prediction = make_predictions("I hate life")            
-            response = {'prediction': prediction}           
-            return JsonResponse(response)
-
 
 #authetication stuff
-@api_view(['GET'])
+@api_view(['POST'])
+@permission_classes([User])
 def current_user(request):
     """
     Determine the current user by their token, and return their data

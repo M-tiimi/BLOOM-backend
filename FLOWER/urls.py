@@ -9,7 +9,7 @@ urlpatterns = [
     path('users/', views.UserList.as_view()),
     path('questions/', views.QuestionList.as_view()),
     path('answers/', views.AnswerList.as_view()),
-    path('ml-model/', views.call_model.as_view()),
+    path('ml-model/', views.call_model),
     path('current_user/', views.current_user),
     
     

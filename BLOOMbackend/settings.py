@@ -26,7 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS =  ['bloom-app.azurewebsites.net', 'localhost']
+ALLOWED_HOSTS =  ['bloom-app.azurewebsites.net', 'localhost', '192.168.100.3', '19002']
 
 
 # Application definition
@@ -118,8 +118,11 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:19002',
+    'http://192.168.100.3:19002',
+
 )
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
