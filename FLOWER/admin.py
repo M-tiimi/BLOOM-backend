@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 # Register your models here.
-from .models import Flower, Answer, Question, Task, User, UserManager
+from .models import Answer, Question, Task, User, UserManager
 
 
 class UserCreationForm(forms.ModelForm):
@@ -76,7 +76,6 @@ class UserAdmin(BaseUserAdmin):
 
 
 
-admin.site.register(Flower)
 admin.site.register(User)
 admin.site.register(Question)
 admin.site.register(Answer)

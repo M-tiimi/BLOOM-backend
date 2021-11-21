@@ -42,6 +42,7 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=20, unique=True)
     password = models.CharField(max_length=20)
     birth_year = models.IntegerField()
+    points = models.IntegerField(null =True)
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -76,13 +77,6 @@ class User(AbstractBaseUser):
         return self.username
 
 
-class Flower(models.Model):
-    color = models.CharField(max_length=50)
-    wellness = models.CharField(max_length=100)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="flower") 
-
-    def __str__(self):
-        return 'I am '+self.color+' Flower'
 
 class Question(models.Model):
     title = models.CharField(max_length=40)
@@ -96,6 +90,6 @@ class Answer(models.Model):
     
 
 class Task(models.Model):
-    points = models.IntegerField()
-    flower = models.ForeignKey(Flower, on_delete=models.CASCADE, null=True, related_name='task')
+    title = models.CharField(max_length=1000, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='task')
     

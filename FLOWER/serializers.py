@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from FLOWER.models import Flower
 from FLOWER.models import User
 from FLOWER.models import Answer
 from FLOWER.models import Question
@@ -7,35 +6,15 @@ from FLOWER.models import Task
 from rest_framework_jwt.settings import api_settings
 
 
-class FlowerSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    color = serializers.CharField(required=False, allow_blank=True, max_length=50)
-    wellness = serializers.CharField(required=False, max_length = 100)
-    user =serializers.PrimaryKeyRelatedField(many=False, read_only=True)
-    task = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    def create(self, validated_data):
-        
-        #Create and return a new `Flower` instance, given the validated data.
-        
-        return Flower.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        
-        #Update and return an existing `Flower` instance, given the validated data.
-        
-        instance.color = validated_data.get('color', instance.color)
-        instance.wellness = validated_data.get('wellness', instance.wellness)
-        
-        instance.save()
-        return instance
 
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(required=True, allow_blank=False)
     password =serializers.CharField(required = True, allow_blank=False)
     age = serializers.IntegerField(required=False)
-    flower = serializers.PrimaryKeyRelatedField(many=False, read_only=True) 
     question = serializers.PrimaryKeyRelatedField(many=True, read_only=True) 
+    task = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    points = serializers.IntegerField()
    
     is_active = serializers.BooleanField(default=True)
     is_admin = serializers.BooleanField(default=False)
@@ -114,7 +93,7 @@ class AnswerSerializer(serializers.Serializer):
 class TaskSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     points=serializers.IntegerField(read_only=True)
-    flower = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
    
 
     def create(self, validated_data):

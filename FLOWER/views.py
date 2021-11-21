@@ -1,7 +1,5 @@
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from FLOWER.models import Flower
-from FLOWER.serializers import FlowerSerializer
 from FLOWER.models import User
 from FLOWER.serializers import UserSerializer, UserSerializerWithToken
 from rest_framework.views import APIView
@@ -48,21 +46,7 @@ def current_user(request):
     
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
-
-
-
-class FlowerList(APIView):
-    def get(self, request, format=None):
-        flowers = Flower.objects.all()
-        serializer = FlowerSerializer(flowers, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
-    def post(self, request, format=None):
-        serializer = FlowerSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED, safe=False)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)   
+  
 
 
 class UserList(APIView):
