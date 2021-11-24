@@ -31,10 +31,11 @@ def call_model(request):
     prediction = make_predictions(answer.get('data'))
     if (len(prediction) > 0):
         response = {'prediction': prediction}
+        print(response)
         return JsonResponse(response, status=status.HTTP_201_CREATED, safe=False)
     else:
         return JsonResponse('error', status=status.HTTP_201_CREATED, safe=False)
-    
+
 
 #authetication stuff
 @api_view(['POST'])

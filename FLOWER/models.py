@@ -40,7 +40,7 @@ class UserManager(BaseUserManager):
 # An id field is added automatically, but this behavior can be overridden
 class User(AbstractBaseUser):
     username = models.CharField(max_length=20, unique=True)
-    password = models.CharField(max_length=20)
+    password = models.CharField(max_length=200)
     birth_year = models.IntegerField()
     points = models.IntegerField(null =True)
     email = models.EmailField(
@@ -93,3 +93,7 @@ class Task(models.Model):
     title = models.CharField(max_length=1000, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='task')
     
+
+class Try(models.Model):
+    title = models.CharField(max_length=40)
+     

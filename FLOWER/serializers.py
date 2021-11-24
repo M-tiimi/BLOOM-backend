@@ -2,7 +2,7 @@ from rest_framework import serializers
 from FLOWER.models import User
 from FLOWER.models import Answer
 from FLOWER.models import Question
-from FLOWER.models import Task
+from FLOWER.models import Task, Try
 from rest_framework_jwt.settings import api_settings
 
 
@@ -13,8 +13,8 @@ class UserSerializer(serializers.Serializer):
     password =serializers.CharField(required = True, allow_blank=False)
     age = serializers.IntegerField(required=False)
     question = serializers.PrimaryKeyRelatedField(many=True, read_only=True) 
-    task = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    points = serializers.IntegerField()
+    points = serializers.IntegerField(required=False)
+    task = serializers.PrimaryKeyRelatedField(many=True, required=False, allow_null = True, default=None, read_only=True)
    
     is_active = serializers.BooleanField(default=True)
     is_admin = serializers.BooleanField(default=False)
@@ -26,6 +26,8 @@ class UserSerializer(serializers.Serializer):
         instance.username = validated_data.get('username', instance.username)
         instance.age = validated_data.get('age', instance.age)
         instance.email = validated_data.get('email', instance.email)
+        instance.points = validated_data.get('points', instance.points)
+        
         
         instance.save()
         return instance
@@ -92,16 +94,33 @@ class AnswerSerializer(serializers.Serializer):
 
 class TaskSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    points=serializers.IntegerField(read_only=True)
-    user = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    title = serializers.CharField(required=False, allow_blank=False, max_length=1000)
+    user = UserSerializer(required=False)
    
 
     def create(self, validated_data):
         return Task.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.points = validated_data.get('points', instance.points)
+        instance.title = validated_data.get('title', instance.title)
+        instance.user =validated_data.get('user', instance.user)
         
         
+       
         instance.save()
         return instance
+
+
+class TrySerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField(required=True, allow_blank=False, max_length=40)
+    
+
+    def create(self, validated_data):
+        return Try.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        
+        instance.save()
+        return instance        
