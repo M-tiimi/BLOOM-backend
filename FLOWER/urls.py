@@ -6,10 +6,10 @@ from django.shortcuts import render
 #urls for views, check BLOOMbackend folder where urls.py is
 urlpatterns = [
     path('', views.UserList.as_view()),
-    path('questions/', views.QuestionList.as_view()),
-    path('answers/', views.AnswerList.as_view()),
     path('ml-model/', views.call_model),
     path('current_user/', views.current_user),
-    
-    
+    path('task/<int:pk>', views.get_task_by_id),
+    path('question/<int:pk>', views.get_question_by_id),
+    path('answer/<int:pk>', views.get_answer_by_id)
+
 ]

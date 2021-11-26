@@ -6,10 +6,10 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 # Register your models here.
-from .models import Answer, Question, Task, User, UserManager, Try
+from .models import Answer, Question, Task, User, UserManager
 
 
-admin.site.register(Try)
+
 admin.site.register(User)
 admin.site.register(Question)
 admin.site.register(Answer)

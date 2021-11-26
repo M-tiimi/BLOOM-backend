@@ -2,7 +2,7 @@ from rest_framework import serializers
 from FLOWER.models import User
 from FLOWER.models import Answer
 from FLOWER.models import Question
-from FLOWER.models import Task, Try
+from FLOWER.models import Task
 from rest_framework_jwt.settings import api_settings
 
 
@@ -111,16 +111,3 @@ class TaskSerializer(serializers.Serializer):
         return instance
 
 
-class TrySerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField(required=True, allow_blank=False, max_length=40)
-    
-
-    def create(self, validated_data):
-        return Try.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get('title', instance.title)
-        
-        instance.save()
-        return instance        

@@ -62,7 +62,7 @@ class User(AbstractBaseUser):
         # Simplest possible answer: Yes, always
         return True
 
-    def has_module_perms(self, app_label):
+    def has_module_perms(self, FLOWER):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
@@ -94,6 +94,3 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='task')
     
 
-class Try(models.Model):
-    title = models.CharField(max_length=40)
-     
