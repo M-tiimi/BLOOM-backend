@@ -11,11 +11,11 @@ class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(required=True, allow_blank=False)
     password =serializers.CharField(required = True, allow_blank=False)
-    age = serializers.IntegerField(required=False)
+    birth_year = serializers.IntegerField(read_only=True)
+    email= serializers.EmailField(read_only=True)
     question = serializers.PrimaryKeyRelatedField(many=True, read_only=True) 
     points = serializers.IntegerField(required=False)
     task = serializers.PrimaryKeyRelatedField(many=True, required=False, allow_null = True, default=None, read_only=True)
-   
     is_active = serializers.BooleanField(default=True)
     is_admin = serializers.BooleanField(default=False)
 
@@ -24,7 +24,7 @@ class UserSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         instance.username = validated_data.get('username', instance.username)
-        instance.age = validated_data.get('age', instance.age)
+        instance.birth_year = validated_data.get('birth_year', instance.birth_year)
         instance.email = validated_data.get('email', instance.email)
         instance.points = validated_data.get('points', instance.points)
         
@@ -56,10 +56,13 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         instance.save()
         return instance
 
+
+    class Meta:
+        model = User
+        fields = ('token', 'username', 'password', 'birth_year','points', 'email')    
+
  
          
-
-
 
 class QuestionSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
@@ -99,14 +102,13 @@ class TaskSerializer(serializers.Serializer):
    
 
     def create(self, validated_data):
-        return Task.objects.create(**validated_data)
+        user_data = validated_data.pop('user')
+        user = User.objects.get(**user_data)
+        return Task.objects.create(user=user, **validated_data)
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get('title', instance.title)
-        instance.user =validated_data.get('user', instance.user)
         
-        
-       
         instance.save()
         return instance
 

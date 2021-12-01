@@ -15,6 +15,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions, status
 from rest_framework.permissions import BasePermission
 from django.utils.decorators import method_decorator
+from rest_framework.parsers import JSONParser
 
 
 
@@ -55,6 +56,11 @@ def current_user(request):
 class UserList(APIView):
     permission_classes = (permissions.AllowAny,)
 
+    def get(self, request, format=None):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
     def post(self, request, format=None):
         serializer = UserSerializerWithToken(data=request.data)
         if serializer.is_valid():
@@ -63,11 +69,23 @@ class UserList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
    
     
+class TaskList(APIView):
+  
+    def get(self, request, format=None):
+        tasks = Task.objects.all()
+        serializer = TaskSerializer(tasks, many=True)
+        return Response(serializer.data)
 
-
+    def post(self, request, format=None):
+        serializer = TaskSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
 
 @method_decorator(csrf_exempt, name='dispatch')
-@api_view(['GET','POST','PUT','DELETE'])
+@api_view(['GET','PUT','DELETE'])
 @permission_classes([AllowAny])
 def get_task_by_id(request, pk, format=None):
     try:
@@ -106,7 +124,7 @@ def get_question_by_id(request, pk, format=None):
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-@api_view(['GET','POST','PUT','DELETE'])
+@api_view(['GET','PUT','DELETE'])
 @permission_classes([AllowAny])
 def get_answer_by_id(request, pk, format=None):
     try:

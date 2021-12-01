@@ -10,6 +10,7 @@ urlpatterns = [
     path('current_user/', views.current_user),
     path('task/<int:pk>', views.get_task_by_id),
     path('question/<int:pk>', views.get_question_by_id),
-    path('answer/<int:pk>', views.get_answer_by_id)
+    path('answer/<int:pk>', views.get_answer_by_id),
+   path('tasks/', views.TaskList.as_view())
 
 ]
