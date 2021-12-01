@@ -52,14 +52,8 @@ def current_user(request):
     return Response(serializer.data)
   
 
-
+@permission_classes([AllowAny])
 class UserList(APIView):
-    permission_classes = (permissions.AllowAny,)
-
-    def get(self, request, format=None):
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-        return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = UserSerializerWithToken(data=request.data)
@@ -68,13 +62,10 @@ class UserList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
    
-    
+
+@permission_classes([AllowUser])
 class TaskList(APIView):
   
-    def get(self, request, format=None):
-        tasks = Task.objects.all()
-        serializer = TaskSerializer(tasks, many=True)
-        return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = TaskSerializer(data=request.data)
@@ -84,7 +75,7 @@ class TaskList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
-@method_decorator(csrf_exempt, name='dispatch')
+
 @api_view(['GET','PUT','DELETE'])
 @permission_classes([AllowAny])
 def get_task_by_id(request, pk, format=None):
@@ -95,7 +86,7 @@ def get_task_by_id(request, pk, format=None):
 
     if request.method == 'GET':
         serializer = TaskSerializer(task)
-        return Response(serializer.data)
+        return Response(serializer.data['title'])
 
     elif request.method == 'PUT':
         serializer = TaskSerializer(task, data=request.data)
@@ -123,7 +114,7 @@ def get_question_by_id(request, pk, format=None):
         return Response(serializer.data)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
+
 @api_view(['GET','PUT','DELETE'])
 @permission_classes([AllowAny])
 def get_answer_by_id(request, pk, format=None):
