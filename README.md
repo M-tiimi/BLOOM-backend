@@ -14,7 +14,7 @@ https://raw.githubusercontent.com/jbrownlee/Datasets/master/review_polarity.tar.
 
 
 
-**Text length should be 100-422 words for the Machine Learning model. If answer is <0,5 text is analysed as negative if >0,5 text is analyzed as positive**
+**Text length should be 100-422 words for the Machine Learning model. If answer is <0,5 text is analysed as negative if >0,5 text is analyzed as positive.**
 
 ### Example of POST answer
 
