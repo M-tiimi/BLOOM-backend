@@ -10,7 +10,7 @@ https://raw.githubusercontent.com/jbrownlee/Datasets/master/review_polarity.tar.
 
 | Request  | Data format|
 | ------------- | ------------- |
-| POST  |  { data: text }  |
+| POST  |  { "data": "text" }  |
 
 
 
