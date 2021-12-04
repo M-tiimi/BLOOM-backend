@@ -84,6 +84,7 @@ def get_task_by_id(request, pk, format=None):
     except Task.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+#fix to return list of users tasks
     if request.method == 'GET':
         serializer = TaskSerializer(task)
         return Response(serializer.data['title'])
