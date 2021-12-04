@@ -6,15 +6,15 @@ This project was created during Haaga-Helia's Software Poject II -course in fall
 
 ## Machine Learning API Documentation
 The Machine Learning model is trained with 
-https://bloom-app.azurewebsites.net/ml-model/
+https://raw.githubusercontent.com/jbrownlee/Datasets/master/review_polarity.tar.gz movie review data, that is comprised of 1000 positive reviews and 1000 negative reviews.
 
 | Request  | Data format|
 | ------------- | ------------- |
-| POST  | {"data":"text"}  |
+| POST  |  { data: text }  |
 
 
 
-**Text length should be 100-422 words for the Machine Learning model.**
+**Text length should be 100-422 words for the Machine Learning model. If answer is <0,5 text is analysed as negative if >0,5 text is analyzed as positive**
 
 ### Example of POST answer
 
