@@ -8,6 +8,8 @@ This project was created during Haaga-Helia's Software Poject II -course in fall
 The Machine Learning model is trained with 
 https://raw.githubusercontent.com/jbrownlee/Datasets/master/review_polarity.tar.gz movie review data, that is comprised of 1000 positive reviews and 1000 negative reviews.
 
+Link to API: https://bloom-app.azurewebsites.net/ml-model/
+
 | Request  | Data format|
 | ------------- | ------------- |
 | POST  |  { "data": "text" }  |
