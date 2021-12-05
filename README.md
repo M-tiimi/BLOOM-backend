@@ -3,6 +3,13 @@
 Juulia Jokinen, Jelena Laakkonen, Veera Leppänen, Anne-Mari Mannila, Areta Santos
 ## Project idea
 This project was created during Haaga-Helia's Software Poject II -course in fall 2021. This project is the backend for https://github.com/M-tiimi/BLOOM-frontend. BLOOM-backend also offers an open Machine Learning API for text sentiment analysis.
+## Built with
+-[Django](https://www.djangoproject.com/)
+-[Django REST framework](https://www.django-rest-framework.org/)
+-[Python](https://www.python.org/)
+-[Tensorflow + Keras](https://www.tensorflow.org/)
+
+
 
 ## Machine Learning API Documentation
 The Machine Learning model is trained with 
