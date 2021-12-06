@@ -18,17 +18,16 @@ from django.utils.decorators import method_decorator
 from rest_framework.parsers import JSONParser
 
 
-
 class AllowAny(BasePermission):
     def has_permission(self, request, view):
         return request.method 
-
-
+        
+#in developement...
 class AllowUser(BasePermission):
     def has_permission(self, request, view):
-        return request.method         
-
-#call ml-model and make a prediction that is shown on url ml-model
+        return request.method 
+        
+#Open Machine Learing API for making a prediction on text sentiment
 @method_decorator(csrf_exempt, name='dispatch')
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -44,14 +43,14 @@ def call_model(request):
         return JsonResponse('error', status=status.HTTP_201_CREATED, safe=False)
 
 
-#authetication stuff
+#Autheticate and get user token and information about current user
 @api_view(['POST'])
 @permission_classes([User])
 def current_user(request):
     serializer = UserSerializer(request.user)
     return Response(serializer.data)
   
-
+#Create new user
 @permission_classes([AllowAny])
 class UserList(APIView):
 
@@ -62,7 +61,7 @@ class UserList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
    
-
+#Add new task for user
 @permission_classes([AllowUser])
 class TaskList(APIView):
   
@@ -74,8 +73,7 @@ class TaskList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
-
-
+#returns user's tasks !!Authentication not required, in developement...
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_user_tasks(request, pk, format=None):
@@ -87,7 +85,7 @@ def get_user_tasks(request, pk, format=None):
         return Response(serializer.data)
 
 
-
+#Modify or delete tasks, no url for this API, in developement...
 @api_view(['GET','PUT','DELETE'])
 @permission_classes([AllowAny])
 def get_task_by_id(request, pk, format=None):
@@ -96,12 +94,7 @@ def get_task_by_id(request, pk, format=None):
     except Task.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-#fix to return list of users tasks
-    if request.method == 'GET':
-        serializer = TaskSerializer(task)
-        return Response(serializer.data['title'])
-
-    elif request.method == 'PUT':
+    if request.method == 'PUT':
         serializer = TaskSerializer(task, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -113,6 +106,7 @@ def get_task_by_id(request, pk, format=None):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+#get user's question, !!Authentication not required, in developement...
 @method_decorator(csrf_exempt, name='dispatch')
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -128,26 +122,4 @@ def get_question_by_id(request, pk, format=None):
 
 
 
-@api_view(['GET','PUT','DELETE'])
-@permission_classes([AllowAny])
-def get_answer_by_id(request, pk, format=None):
-    try:
-        answer = Answer.objects.get(pk=pk)
-    except Answer.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    if request.method == 'GET':
-        serializer = AnswerSerializer(answer)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = AnswerSerializer(answer, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        answer.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
   

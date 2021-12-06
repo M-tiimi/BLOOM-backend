@@ -23,7 +23,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, username, email, birth_year, password=None):
         """
-        Creates and saves a superuser 
+        Creates and saves a django superuser that has admin rights
         """
         user = self.create_user(
             username= username,
@@ -56,28 +56,25 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'username'
     objects = UserManager()
 
-
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, FLOWER):
         "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
+
 
     @property
     def is_staff(self):
         "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
         return self.is_admin    
 
     def __str__(self):
         return self.username
 
 
-
+#create Question, Answer and Task model to the database
 class Question(models.Model):
     title = models.CharField(max_length=40)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="question")

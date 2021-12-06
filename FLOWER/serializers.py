@@ -6,7 +6,7 @@ from FLOWER.models import Task
 from rest_framework_jwt.settings import api_settings
 
 
-
+#Serializers allow data to be converted to native Python datatypes that can then be easily rendered into Json etc.
 class UserSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(required=True, allow_blank=False)
@@ -31,8 +31,6 @@ class UserSerializer(serializers.Serializer):
         
         instance.save()
         return instance
-
-
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):
@@ -62,7 +60,6 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         fields = ('token', 'username', 'password', 'birth_year','points', 'email')    
 
  
-         
 
 class QuestionSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)

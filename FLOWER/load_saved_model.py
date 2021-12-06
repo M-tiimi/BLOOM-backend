@@ -66,10 +66,10 @@ def make_predictions(data):
 	predictions = model.predict(sequenced_data, verbose = 0)
 	if predictions > 0.5: 
 		print(predictions, ' data is positive')
-		return predictions.tolist(), ' data is positive'
+		return predictions.tolist(), 'data is positive'
 	else:
 		print(predictions,' data is negative')
-		return predictions.tolist(), ' data is negative'
+		return predictions.tolist(), 'data is negative'
 
 
 
