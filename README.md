@@ -14,7 +14,7 @@ This project was created during Haaga-Helia's Software Poject II -course in fall
 
 
 
-## Machine Learning API Documentation
+## Machine Learning REST API Documentation
 The Machine Learning model is trained with 
 https://raw.githubusercontent.com/jbrownlee/Datasets/master/review_polarity.tar.gz movie review data, that is comprised of 1000 positive reviews and 1000 negative reviews.
 
