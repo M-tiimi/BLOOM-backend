@@ -20,7 +20,7 @@ https://raw.githubusercontent.com/jbrownlee/Datasets/master/review_polarity.tar.
 
 Link to API: https://bloom-app.azurewebsites.net/ml-model/
 
-Example request from commandline: curl -d "data=I am so happy" https://bloom-app.azurewebsites.net/ml-model/
+Example request from command line: curl -d "data=I am so happy" https://bloom-app.azurewebsites.net/ml-model/
 
 
 | Request  | Data format|
